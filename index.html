@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphic Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="analog">
+        <div class="hour">
+            <div class="hr"></div>
+        </div>
+        <div class="minute">
+            <div class="mn"></div>
+        </div>
+        <div class="second">
+            <div class="sc"></div>
+        </div>
+        <div class="Am-Pm"></div>
+    </div>
+
+    <div class="digital">
+        <div class="digi-container">
+            <div>
+                <h2 class="hrs"></h2>
+                <p>hrs</p>
+            </div>
+            <div>
+                <h2 class="mins"></h2>
+                <p>mins</p>
+            </div>
+            <div>
+                <h2 class="secs"></h2>
+                <p>sec</p>
+            </div>
+        </div>
+        <div class="am-pm"></div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        setInterval(() => {
+            DisplayCurrentTime();
+        });
+
+        function DisplayCurrentTime() {
+            var date = new Date();
+            var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+            var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+            hours = hours < 10 ? "0" + hours : hours;
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+            //time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
+            //DIGITAL
+            var hr = document.querySelector(".hrs");
+            var min = document.querySelector(".mins");
+            var sec = document.querySelector(".secs");
+            var ap = document.querySelector(".am-pm");
+            hr.innerHTML = hours;
+            min.innerHTML = minutes;
+            sec.innerHTML = seconds;
+            ap.innerHTML = am_pm;
+
+            //ANALOG
+            var hr = document.querySelector(".hour");
+            var min = document.querySelector(".minute");
+            var sec = document.querySelector(".second");
+            var ap = document.querySelector(".Am-Pm");
+            hr.innerHTML = hours;
+            min.innerHTML = minutes;
+            sec.innerHTML = seconds;
+            ap.innerHTML = am_pm;
+        };
+    </script>
+</body>
+
+</html>
