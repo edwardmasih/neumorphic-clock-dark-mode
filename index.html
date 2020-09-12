@@ -9,17 +9,19 @@
 </head>
 
 <body>
+    <!-- Rounded switch -->
+    <h4>Theme Switch Toggle</h4>
+    <label class="switch">
+        <input type="checkbox" onchange="toggleLightMode()">
+        <span class="slider"></span>
+    </label>
 
     <div class="analog">
-        <div class="hour">
-            <div class="hr"></div>
-        </div>
-        <div class="minute">
-            <div class="mn"></div>
-        </div>
-        <div class="second">
-            <div class="sc"></div>
-        </div>
+
+        <div class="hr"></div>
+        <div class="mn"></div>
+        <div class="sc"></div>
+
         <div class="Am-Pm"></div>
     </div>
 
@@ -44,9 +46,25 @@
 
 
     <script type="text/javascript">
+        const body = document.querySelector("body");
+        function toggleLightMode() {
+            body.classList.toggle('light');
+        }
+        //DIGITAL
+        const hr = document.querySelector(".hrs");
+        const min = document.querySelector(".mins");
+        const sec = document.querySelector(".secs");
+        const ap = document.querySelector(".am-pm");
+        //ANALOG
+        const deg = 6;
+        const hour = document.querySelector(".hr");
+        const minute = document.querySelector(".mn");
+        const second = document.querySelector(".sc");
+        const ap1 = document.querySelector(".Am-Pm");
 
         setInterval(() => {
             DisplayCurrentTime();
+            Analog();
         });
 
         function DisplayCurrentTime() {
@@ -56,27 +74,29 @@
             hours = hours < 10 ? "0" + hours : hours;
             var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
             var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-            //time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
-            //DIGITAL
-            var hr = document.querySelector(".hrs");
-            var min = document.querySelector(".mins");
-            var sec = document.querySelector(".secs");
-            var ap = document.querySelector(".am-pm");
+
             hr.innerHTML = hours;
             min.innerHTML = minutes;
             sec.innerHTML = seconds;
             ap.innerHTML = am_pm;
 
-            //ANALOG
-            var hr = document.querySelector(".hour");
-            var min = document.querySelector(".minute");
-            var sec = document.querySelector(".second");
-            var ap = document.querySelector(".Am-Pm");
-            hr.innerHTML = hours;
-            min.innerHTML = minutes;
-            sec.innerHTML = seconds;
-            ap.innerHTML = am_pm;
         };
+
+        function Analog() {
+
+            let day = new Date();
+            let hh = day.getHours() * 30;
+            let mm = day.getMinutes() * deg;
+            let ss = day.getSeconds() * deg;
+            var am_pm = day.getHours() >= 12 ? "PM" : "AM";
+            ap1.innerHTML = am_pm;
+
+            hour.style.transform = `rotateZ(${(hh) + (mm / 12)}deg)`;
+            minute.style.transform = `rotateZ(${mm}deg)`;
+            second.style.transform = `rotateZ(${ss}deg)`;
+        }
+
+
     </script>
 </body>
 
